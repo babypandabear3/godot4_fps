@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlhqus7aad572"]
+
+[ext_resource type="Texture2D" uid="uid://mthafnlxoxwb" path="res://material/basic-grid-tex.png" id="1_eb055"]
+[ext_resource type="PackedScene" uid="uid://dbbcwjbrv77r0" path="res://player/player.tscn" id="2_qxb4f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l8pbs"]
+albedo_texture = ExtResource("1_eb055")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_f76lw"]
+material = SubResource("StandardMaterial3D_l8pbs")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ome7"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pl7iw"]
+size = Vector3(3, 1, 3)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_i7ovj"]
+data = PackedVector3Array(-1.5, 0.5, 1.5, 1.5, 0.5, 1.5, -1.5, -0.5, 1.5, 1.5, 0.5, 1.5, 1.5, -0.5, 1.5, -1.5, -0.5, 1.5, 1.5, 0.5, -1.5, -1.5, 0.5, -1.5, 1.5, -0.5, -1.5, -1.5, 0.5, -1.5, -1.5, -0.5, -1.5, 1.5, -0.5, -1.5, 1.5, 0.5, 1.5, 1.5, 0.5, -1.5, 1.5, -0.5, 1.5, 1.5, 0.5, -1.5, 1.5, -0.5, -1.5, 1.5, -0.5, 1.5, -1.5, 0.5, -1.5, -1.5, 0.5, 1.5, -1.5, -0.5, -1.5, -1.5, 0.5, 1.5, -1.5, -0.5, 1.5, -1.5, -0.5, -1.5, 1.5, 0.5, 1.5, -1.5, 0.5, 1.5, 1.5, 0.5, -1.5, -1.5, 0.5, 1.5, -1.5, 0.5, -1.5, 1.5, 0.5, -1.5, -1.5, -0.5, 1.5, 1.5, -0.5, 1.5, -1.5, -0.5, -1.5, 1.5, -0.5, 1.5, 1.5, -0.5, -1.5, -1.5, -0.5, -1.5)
+
+[node name="world" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_f76lw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_0ome7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.742327, 0.440228, -0.505124, 0, 0.753873, 0.65702, 0.670038, -0.487724, 0.55962, 0, 28.376, 0)
+light_color = Color(0.698039, 0.698039, 0.698039, 1)
+light_energy = 0.8
+light_indirect_energy = 0.5
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_qxb4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -6)
+mesh = SubResource("BoxMesh_pl7iw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_i7ovj")
